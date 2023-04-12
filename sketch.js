@@ -2,30 +2,6 @@
 // By Colby Reinhart
 // 3-23-2023
 
-// I thought a lot about what I wanted to make for this project before I came
-// up with what I have here. My running idea for a while was to make
-// "word verbs". The canvas would have a circle with the word "ball" in it
-// that would bounce around the screen, a rectangle named "wall" that the ball
-// couldn't pass, a rectangle named "brick" that you could move with the mouse
-// and would fall to the bottom of the canvas without you holding it, etc. I
-// was playing around in the javascript console to see how some stuff worked
-// when I finally realized what I wanted to do.
-
-// I call this work "Terminal". Terminals are used everywhere in computer
-// science to control computers without having to write any code. I wanted
-// people who have no experience in p5 or coding to be able to make precise
-// shapes and patterns on the canvas without having to know a single thing
-// about javascript, p5, or coding in general. In that way, I ask the viewer
-// to design their own art by giving them freedom and agency. I designed the
-// top of the screen to look like a terminal such as windows command prompt or
-// the linux terminal to emulate what computer scientists do on a daily basis.
-// This project is a statement on abstraction, which is the most fundamental
-// principle of computer science. Abstraction is the idea of hiding away the
-// details so that we can focus only on the simple things.
-
-// I have so many more ideas and commands I want to implement, but this code
-// is getting very complex and I'm almost out of time.
-
 // Declare some useful global constants
 const fontSize = 20; // Size of text in the terminal
 const fontLeading = 1.1; // Text leading in the terminal
@@ -34,19 +10,8 @@ const terminalPadding = 10; // How far away from the edge of the terminal is the
 const terminalPrompt = "> "; // The first thing to appear on each new terminal line
 const terminalCursorBlinkDelay = 20; // How many frames until the cursor "blinks"
 
-// This class is in charge of reading in commands and doing whatever it is those
-// commands do. It holds all variables relevant to interpreting and executing
-// commands as well as functions that make that happen.
 class Interpreter
 {
-  // This function is called when we create an object of this class. It expects
-  // a terminal as an argument so that it can talk to the terminal, so we'll
-  // have to provide one. For drawing things on the canvas, I use a cursor
-  // pattern. Basically, the interpreter keeps track of a position on the
-  // canvas of where to start drawing things. Anything drawn originates from
-  // the cursor location. Originally everything was done in absolute
-  // coordinates all the time, but I found that it was more intuitive to do it
-  // this way.
   constructor(terminal)
   {
     this.terminal = terminal; // A reference to the terminal on the screen
@@ -76,16 +41,8 @@ class Interpreter
     // We don't use stroke, for simplicity.
     fill(this.currentColor.r, this.currentColor.g, this.currentColor.b);
     
-    // This is called a try-catch statement. If any code inside the try block
-    // would fail, the catch block below it would be ran instead of erroring
-    // to the console. This lets us detect if something is wrong with a command.
     try
     {
-      // This is a switch statement, which is basically a bunch of if-else
-      // statements. Whatever we put in the parenthesis gets compared to the
-      // values after each "case" keyword. If a comparsion matches, run the
-      // code underneath it. The break keyword at the end of each case just
-      // tells the switch statement to stop.
       switch (args[0])
       {
         // Clear the terminal
@@ -106,9 +63,6 @@ class Interpreter
           break;
           
         // Control whether the cursor is absolute or relative
-        // A triple equals operator is called strict equality. It only
-        // evaluates to true if the two vales are EXACTLY equal, regardless of
-        // type coersion.
         case "cursorMode":
           if (args[1] === "absolute")
           {
@@ -204,11 +158,6 @@ class Interpreter
           terminal.printLine("Command not recognized. Run command 'tutorial' for instructions.");
       } 
     }
-    
-    // If anything in the above try block causes an error, this catch block
-    // will run instead and info about the error will be put in the "err"
-    // variable. So we'll print the error to the actual console as well as
-    // the inform the user about it in our virtual terminal.
     catch(err)
     {
       print(err);
@@ -232,9 +181,7 @@ class Terminal
     this.lineHeight = fontSize * fontLeading; // The height of each terminal line
     this.maxLines = parseInt((terminalHeight - terminalPadding) / this.lineHeight); // The
     // maximum amount of lines we can have without text going off the terminal.
-    this.interpreter = new Interpreter(this); // Create an interpreter, and
-    // pass a reference to ourselves "this" as an argument so the interpreter
-    // can reference us too.
+    this.interpreter = new Interpreter(this); // Instantiate the interpreter
     this.framesSinceCursorBlink = 0; // How many frames since the cursor last blinked?
     this.isCursorShowing = true; // Is the cursor currently blinking?
   }
@@ -318,9 +265,6 @@ class Terminal
     {
       // Line up the terminal cursor
       cursorY -= (fontSize * fontLeading);
-      // textWidth() is a p5 function that tells us how many pixels wide a
-      // sentence would be if we drew it right now. We can use this to find
-      // out where the end of the line is and therefore where to draw the cursor.
       cursorX += textWidth(this.lines[this.lines.length - 1]);
       
       // Draw the terminal cursor
@@ -351,12 +295,6 @@ function setup() {
   showTutorial();
 }
 
-// Define draw
-// We want everthing drawn on the canvas to persist without having to keep
-// track of everything drawn and redrawing it again every frame. So,
-// background() is not called here. Instead, we only draw the terminal every
-// frame. If the user wants to erase the canvas, the can call the background
-// command from the terminal.
 function draw() {
   // Draw the terminal.
   terminal.drawTerminal();
@@ -375,11 +313,6 @@ function keyPressed() {
  terminal.typeCharacter(); // Tell the terminal that the user has typed something.
 }
 
-// Define custom function showTutorial(). The tutorial shown on screen when the
-// sketch is ran is made entirely using the terminal and interpreter
-// functionality I made. I can invoke the interpreter directly through the code
-// as if I typed it in the terminal as seen below. When this function is
-// called, it runs the necessary commands to draw the tutorial on the screen.
 function showTutorial()
 {
   // Revert everything back to default
