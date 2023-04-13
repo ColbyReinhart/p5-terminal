@@ -48,12 +48,21 @@ class Interpreter
 		try
 		{
 			const command = this.commandList[args[0]];
-			command(args.slice(1), this.terminal, this);
+			if (command != undefined)
+			{
+				command(args.slice(1), this.terminal, this);
+			}
+			else
+			{
+				this.terminal.printLine("Unrecognized command. Run command"
+				+ " 'tutorial' for instructions");
+			}
 		}
 		catch(err)
 		{
 			print(err);
-			terminal.printLine("Invalid arguments. Run command 'tutorial' for instructions.");
+			terminal.printLine("Invalid arguments. Run command 'tutorial'"
+			+ " for instructions.");
 		}
 		
 		// Revert to configurations saved when this function started.
