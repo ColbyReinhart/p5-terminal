@@ -60,9 +60,7 @@ class Interpreter
 		}
 		catch(err)
 		{
-			print(err);
-			terminal.printLine("Invalid arguments. Run command 'tutorial'"
-			+ " for instructions.");
+			terminal.printLine(err);
 		}
 		
 		// Revert to configurations saved when this function started.
