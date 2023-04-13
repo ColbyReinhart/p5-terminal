@@ -2,8 +2,6 @@
 // By Colby Reinhart
 // 3-23-2023
 
-const terminalCursorBlinkDelay = 20; // How many frames until the cursor "blinks"
-
 let terminal = new Terminal();
 
 function setup() {
@@ -22,14 +20,6 @@ function setup() {
 function draw() {
 	// Draw the terminal.
 	terminal.drawTerminal();
-	
-	// Handle the cursor blinking functionality.
-	terminal.framesSinceCursorBlink++;
-	if (terminal.framesSinceCursorBlink >= terminalCursorBlinkDelay)
-	{
-		terminal.isCursorShowing = !terminal.isCursorShowing;
-		terminal.framesSinceCursorBlink = 0;
-	}
 }
 
 

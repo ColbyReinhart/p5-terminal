@@ -3,7 +3,7 @@ const terminalPadding = 10;
 const fontSize = 20;
 const fontLeading = 1.1;
 const terminalPrompt = "> ";
-
+const terminalCursorBlinkDelay = 20;
 class Terminal
 {
 	// This function is called when an object of the terminal class is created.
@@ -93,6 +93,14 @@ class Terminal
 			text(this.lines[i], cursorX, cursorY);
 			cursorY += this.lineHeight;
 		}
+
+        // Handle the cursor blinking functionality.
+        this.framesSinceCursorBlink++;
+        if (this.framesSinceCursorBlink >= terminalCursorBlinkDelay)
+        {
+            terminal.isCursorShowing = !terminal.isCursorShowing;
+            terminal.framesSinceCursorBlink = 0;
+        }
 		
 		// Draw the cursor
 		if (this.isCursorShowing)
