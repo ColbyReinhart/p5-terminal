@@ -1,10 +1,13 @@
+const startingColor = {r: 255, g: 255, b: 255};
+const startingTextSize = 15;
+
 class Interpreter
 {
 	constructor(terminal)
 	{
-		this.terminal = terminal; // A reference to the terminal on the screen
-		this.currentColor = {r: 255, g: 255, b: 255}; // The current color to draw with
-		this.textSize = 15; // The size of drawn text
+		this.terminal = terminal;
+		this.currentColor = startingColor;
+		this.textSize = startingTextSize; // The size of drawn text
 		this.cursorX = 0; // Cursor x position
 		this.cursorY = terminal.terminalHeight; // Cursor y position
 		this.relativeCursor = false; // Should setting the cursor coordinates be

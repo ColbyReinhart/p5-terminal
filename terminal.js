@@ -1,24 +1,23 @@
-const fontLeading = 1.1; // Text leading in the terminal
-const terminalHeight = 200; // How many pixels high is the terminal?
-const terminalPadding = 10; // How far away from the edge of the terminal is the text?
-const terminalPrompt = "> "; // The first thing to appear on each new terminal line
+const terminalHeight = 200;
+const terminalPadding = 10;
 const fontSize = 20;
+const fontLeading = 1.1;
+const terminalPrompt = "> ";
 
 class Terminal
 {
 	// This function is called when an object of the terminal class is created.
 	constructor()
 	{
-		this.lines = [terminalPrompt]; // Start off with one line containing the prompt
-		this.lineNumber = 0; // This variable stores the index of the last line.
-        this.fontSize = this.fontSize;
-		this.lineHeight = fontSize * fontLeading; // The height of each terminal line
-        this.terminalHeight = terminalHeight;
-		this.maxLines = parseInt((terminalHeight - terminalPadding) / this.lineHeight); // The
-		// maximum amount of lines we can have without text going off the terminal.
-		this.interpreter = new Interpreter(this); // Instantiate the interpreter
-		this.framesSinceCursorBlink = 0; // How many frames since the cursor last blinked?
-		this.isCursorShowing = true; // Is the cursor currently blinking?
+        this.height = terminalHeight;
+		this.lines = [terminalPrompt];
+		this.lineNumber = 0;
+        this.fontSize = fontSize;
+		this.lineHeight = fontSize * fontLeading;
+		this.maxLines = parseInt((terminalHeight - (terminalPadding * 2)) / this.lineHeight);
+		this.interpreter = new Interpreter(this);
+		this.isCursorShowing = true;
+        this.framesSinceCursorBlink = 0;
 	}
 	
 	// Print a message to the terminal
