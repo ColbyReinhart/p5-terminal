@@ -52,15 +52,24 @@ class Interpreter
 		
 		try
 		{
-			const command = this.commandList[args[0]];
+			let command = this.commandList[args[0]];
 			if (command != undefined)
 			{
 				command(args.slice(1), this.terminal);
 			}
 			else
 			{
-				this.terminal.printLine("Unrecognized command. Run command"
-				+ " 'tutorial' for instructions");
+				command = window[args[0]];
+
+				if (command != undefined)
+				{
+					command(...(args.splice(1)));
+				}
+				else
+				{
+					this.terminal.printLine("Unrecognized command. Run command"
+					+ " 'tutorial' for instructions");
+				}
 			}
 		}
 		catch(err)
