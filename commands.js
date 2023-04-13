@@ -5,11 +5,11 @@ export const commandList =
 	"cursorMode": cursorMode,
 	"cursor": cursor,
 	"color": color,
-	"text": text,
+	"text": drawText,
 	"textSize": textSize,
-	"circle": circle,
+	"circle": circ,
 	"rect": rectangle,
-	"line": line
+	"line": drawLine
 };
 
 export function clear(args, terminal, interpreter)
@@ -35,7 +35,7 @@ export function cursorMode(args, terminal, interpreter)
 	{
 		interpreter.relativeCursor = false;
 	}
-	else if (args[1] === "relative")
+	else if (args[0] === "relative")
 	{
 		interpreter.relativeCursor = true;
 	}
@@ -64,7 +64,7 @@ export function color(args, terminal, interpreter)
 	interpreter.currentColor = {r: args[0], g: args[1], b: args[2]};
 }
 
-export function text(args, terminal, interpreter)
+export function drawText(args, terminal, interpreter)
 {
 	const textToDraw = args.join(" ");
 	text(textToDraw, interpreter.cursorX, interpreter.cursorY);
@@ -75,7 +75,7 @@ export function textSize(args, terminal, interpreter)
 	interpreter.textSize = parseInt(args[0]);
 }
 
-export function circle(args, terminal, interpreter)
+export function circ(args, terminal, interpreter)
 {
 	circle(interpreter.cursorX, interpreter.cursorY, parseInt(args[0]));
 }
@@ -85,7 +85,7 @@ export function rectangle(args, terminal, interpreter)
 	rect(interpreter.cursorX, interpreter.cursorY, parseInt(args[0]), parseInt(args[1]));
 }
 
-export function line(args, terminal, interpreter)
+export function drawLine(args, terminal, interpreter)
 {
 	stroke(interpreter.currentColor.r, interpreter.currentColor.g, interpreter.currentColor.b);
 	strokeWeight(parseInt(args[2]));
