@@ -9,15 +9,15 @@ class Terminal
 	// This function is called when an object of the terminal class is created.
 	constructor()
 	{
-        this.height = terminalHeight;
+		this.height = terminalHeight;
 		this.lines = [terminalPrompt];
 		this.lineNumber = 0;
-        this.fontSize = fontSize;
+		this.fontSize = fontSize;
 		this.lineHeight = fontSize * fontLeading;
 		this.maxLines = parseInt((terminalHeight - (terminalPadding * 2)) / this.lineHeight);
 		this.interpreter = new Interpreter(this);
 		this.isCursorShowing = true;
-        this.framesSinceCursorBlink = 0;
+		this.framesSinceCursorBlink = 0;
 	}
 	
 	// Print a message to the terminal
@@ -94,13 +94,13 @@ class Terminal
 			cursorY += this.lineHeight;
 		}
 
-        // Handle the cursor blinking functionality.
-        this.framesSinceCursorBlink++;
-        if (this.framesSinceCursorBlink >= terminalCursorBlinkDelay)
-        {
-            terminal.isCursorShowing = !terminal.isCursorShowing;
-            terminal.framesSinceCursorBlink = 0;
-        }
+		// Handle the cursor blinking functionality.
+		this.framesSinceCursorBlink++;
+		if (this.framesSinceCursorBlink >= terminalCursorBlinkDelay)
+		{
+			terminal.isCursorShowing = !terminal.isCursorShowing;
+			terminal.framesSinceCursorBlink = 0;
+		}
 		
 		// Draw the cursor
 		if (this.isCursorShowing)
