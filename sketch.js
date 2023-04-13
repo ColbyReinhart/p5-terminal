@@ -95,9 +95,9 @@ function showTutorial()
 	const petalLength = 30;
 	for (let i = 0; i < 2 * PI; i += PI / 5)
 	{
-	const endX = cos(i) * petalLength;
-	const endY = sin(i) * petalLength;
-	terminal.interpreter.interpretCommand("> line " + endX + " " + endY + " 15");
+		const endX = cos(i) * petalLength;
+		const endY = sin(i) * petalLength;
+		terminal.interpreter.interpretCommand("> line " + endX + " " + endY + " 15");
 	}
 	terminal.interpreter.interpretCommand("> color 200 200 0");
 	terminal.interpreter.interpretCommand("> circle 20");

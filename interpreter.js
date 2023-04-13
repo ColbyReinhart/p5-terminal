@@ -46,10 +46,10 @@ class Interpreter
 			case "background":
 				rect
 				(
-				windowWidth / 2,
-				terminalHeight + ((windowHeight - terminalHeight) / 2),
-				windowWidth,
-				windowHeight - terminalHeight
+					windowWidth / 2,
+					terminalHeight + ((windowHeight - terminalHeight) / 2),
+					windowWidth,
+					windowHeight - terminalHeight
 				);
 				break;
 				
@@ -57,15 +57,15 @@ class Interpreter
 			case "cursorMode":
 				if (args[1] === "absolute")
 				{
-				this.relativeCursor = false;
+					this.relativeCursor = false;
 				}
 				else if (args[1] === "relative")
 				{
-				this.relativeCursor = true;
+					this.relativeCursor = true;
 				}
 				else
 				{
-				terminal.printLine("Invalid arguments. Run command 'tutorial' for instructions.");
+					terminal.printLine("Invalid arguments. Run command 'tutorial' for instructions.");
 				}
 				break;
 				
@@ -73,14 +73,15 @@ class Interpreter
 			case "cursor":
 				if (this.relativeCursor)
 				{
-				this.cursorX += parseInt(args[1]);
-				this.cursorY += parseInt(args[2]);
+					this.cursorX += parseInt(args[1]);
+					this.cursorY += parseInt(args[2]);
 				}
 				else
 				{
-				this.cursorX = parseInt(args[1]);
-				this.cursorY = parseInt(args[2]) + terminalHeight; 
+					this.cursorX = parseInt(args[1]);
+					this.cursorY = parseInt(args[2]) + terminalHeight; 
 				}
+
 				break;
 				
 			// Define the current color in RGB
@@ -120,23 +121,23 @@ class Interpreter
 				
 				if (this.relativeCursor)
 				{					
-				line
-				(
-					this.cursorX,
-					this.cursorY,
-					this.cursorX + parseInt(args[1]),
-					this.cursorY + parseInt(args[2])
-				);
+					line
+					(
+						this.cursorX,
+						this.cursorY,
+						this.cursorX + parseInt(args[1]),
+						this.cursorY + parseInt(args[2])
+					);
 				}
 				else
 				{
-				line
-				(
-					this.cursorX,
-					this.cursorY,
-					parseInt(args[1]),
-					parseInt(args[2]) + terminalHeight
-				);
+					line
+					(
+						this.cursorX,
+						this.cursorY,
+						parseInt(args[1]),
+						parseInt(args[2]) + terminalHeight
+					);
 				}
 				break;
 				
