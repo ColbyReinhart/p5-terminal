@@ -21,7 +21,7 @@ function setup()
 	
 	// Show the tutorial on the canvas
 	terminal.interpreter.addCommand("tutorial", showTutorial);
-	///terminal.interpreter.interpretCommand("showTutorial");
+	terminal.interpreter.interpretCommand("> tutorial");
 }
 
 function draw()

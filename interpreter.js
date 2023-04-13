@@ -48,6 +48,7 @@ class Interpreter
 		try
 		{
 			const command = this.commandList[args[0]];
+			console.log(command);
 			if (command != undefined)
 			{
 				command(args.slice(1), this.terminal);
