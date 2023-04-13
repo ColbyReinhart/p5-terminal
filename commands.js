@@ -163,5 +163,5 @@ export function drawLine(args, terminal)
 
 function isNumber(value)
 {
-	return value % 1 === 0;
+	return !isNaN(value) && !isNaN(parseFloat(value));
 }
