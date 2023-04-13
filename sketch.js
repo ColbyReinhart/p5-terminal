@@ -4,7 +4,13 @@
 
 let terminal = new Terminal();
 
-function setup() {
+function preload()
+{
+	terminal.interpreter.loadCommands("./commands.js");
+}
+
+function setup()
+{
 	// P5 setup
 	createCanvas(windowWidth, windowHeight);
 	textFont("Ubuntu Mono");
@@ -14,16 +20,19 @@ function setup() {
 	rectMode(CENTER);
 	
 	// Show the tutorial on the canvas
-	showTutorial();
+	terminal.interpreter.addCommand("tutorial", showTutorial);
+	///terminal.interpreter.interpretCommand("showTutorial");
 }
 
-function draw() {
+function draw()
+{
 	// Draw the terminal.
 	terminal.drawTerminal();
 }
 
 
-function keyPressed() {
+function keyPressed()
+{
  terminal.typeCharacter(); // Tell the terminal that the user has typed something.
 }
 
