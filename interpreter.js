@@ -50,7 +50,7 @@ class Interpreter
 			const command = this.commandList[args[0]];
 			if (command != undefined)
 			{
-				command(args.slice(1), this.terminal, this);
+				command(args.slice(1), this.terminal);
 			}
 			else
 			{

@@ -12,13 +12,13 @@ export const commandList =
 	"line": drawLine
 };
 
-export function clear(args, terminal, interpreter)
+export function clear(args, terminal)
 {
 	terminal.lineNumber = -1;
 	terminal.lines = [];
 }
 
-export function background(args, terminal, interpreter)
+export function background(args, terminal)
 {
 	rect
 	(
@@ -29,25 +29,27 @@ export function background(args, terminal, interpreter)
 	);
 }
 
-export function cursorMode(args, terminal, interpreter)
+export function cursorMode(args, terminal)
 {
 	if (args[0] === "absolute")
 	{
-		interpreter.relativeCursor = false;
+		terminal.interpreter.relativeCursor = false;
 	}
 	else if (args[0] === "relative")
 	{
-		interpreter.relativeCursor = true;
+		terminal.interpreter.relativeCursor = true;
 	}
 	else
 	{
-		terminal.printLine("Invalid arguments. Run command 'tutorial' for instructions.");
+		terminal.printLine("Invalid arguments. Run command 'tutorial'"
+		+ "for instructions.");
 	}
 }
 
-export function cursor(args, terminal, interpreter)
+export function cursor(args, terminal)
 {
-	if (interpreter.relativeCursor)
+	let interpreter = terminal.interpreter;
+	if (terminal.interpreter.relativeCursor)
 	{
 		interpreter.cursorX += parseInt(args[0]);
 		interpreter.cursorY += parseInt(args[1]);
@@ -59,35 +61,44 @@ export function cursor(args, terminal, interpreter)
 	}
 }
 
-export function color(args, terminal, interpreter)
+export function color(args, terminal)
 {
-	interpreter.currentColor = {r: args[0], g: args[1], b: args[2]};
+	terminal.interpreter.currentColor = {r: args[0], g: args[1], b: args[2]};
 }
 
-export function drawText(args, terminal, interpreter)
+export function drawText(args, terminal)
 {
 	const textToDraw = args.join(" ");
-	text(textToDraw, interpreter.cursorX, interpreter.cursorY);
+	text(textToDraw, terminal.interpreter.cursorX, terminal.interpreter.cursorY);
 }
 
-export function textSize(args, terminal, interpreter)
+export function textSize(args, terminal)
 {
-	interpreter.textSize = parseInt(args[0]);
+	terminal.interpreter.textSize = parseInt(args[0]);
 }
 
-export function circ(args, terminal, interpreter)
+export function circ(args, terminal)
 {
+	let interpreter = terminal.interpreter;
 	circle(interpreter.cursorX, interpreter.cursorY, parseInt(args[0]));
 }
 
-export function rectangle(args, terminal, interpreter)
+export function rectangle(args, terminal)
 {
+	let interpreter = terminal.interpreter;
 	rect(interpreter.cursorX, interpreter.cursorY, parseInt(args[0]), parseInt(args[1]));
 }
 
-export function drawLine(args, terminal, interpreter)
+export function drawLine(args, terminal)
 {
-	stroke(interpreter.currentColor.r, interpreter.currentColor.g, interpreter.currentColor.b);
+	let interpreter = terminal.interpreter;
+	stroke
+	(
+		interpreter.currentColor.r,
+		interpreter.currentColor.g,
+		interpreter.currentColor.b
+	);
+
 	strokeWeight(parseInt(args[2]));
 	
 	if (interpreter.relativeCursor)
@@ -107,7 +118,7 @@ export function drawLine(args, terminal, interpreter)
 			interpreter.cursorX,
 			interpreter.cursorY,
 			parseInt(args[0]),
-			parseInt(args[1]) + terminalHeight
+			parseInt(args[1]) + terminal.height
 		);
 	}
 }
