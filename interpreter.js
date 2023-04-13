@@ -60,7 +60,7 @@ class Interpreter
 		}
 		catch(err)
 		{
-			terminal.printLine(err);
+			terminal.printLine("Error: " + err);
 		}
 		
 		// Revert to configurations saved when this function started.

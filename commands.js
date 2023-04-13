@@ -41,13 +41,20 @@ export function cursorMode(args, terminal)
 	}
 	else
 	{
-		terminal.printLine("Invalid arguments. Run command 'tutorial'"
-		+ "for instructions.");
+		throw new Error("Invalid argument: [" + args[0]
+		+ "]. Possible values are 'absolute' and 'relative'.");
 	}
 }
 
 export function cursor(args, terminal)
 {
+	args.forEach((argument) => {
+		if (!isNumber(argument))
+		{
+			throw new Error("Argument [" + argument + "] is not a number.");
+		}
+	});
+
 	let interpreter = terminal.interpreter;
 	if (terminal.interpreter.relativeCursor)
 	{
@@ -63,6 +70,13 @@ export function cursor(args, terminal)
 
 export function color(args, terminal)
 {
+	args.forEach((argument) => {
+		if (!isNumber(argument))
+		{
+			throw new Error("Argument [" + argument + "] is not a number.");
+		}
+	});
+
 	terminal.interpreter.currentColor = {r: args[0], g: args[1], b: args[2]};
 }
 
@@ -74,23 +88,47 @@ export function drawText(args, terminal)
 
 export function textSize(args, terminal)
 {
+	if (!isNumber(args[0]))
+	{
+		throw new Error("Argument must be a number.");
+	}
+
 	terminal.interpreter.textSize = parseInt(args[0]);
 }
 
 export function circ(args, terminal)
 {
+	if (!isNumber(args[0]))
+	{
+		throw new Error("Argument must be a number.");
+	}
+
 	let interpreter = terminal.interpreter;
 	circle(interpreter.cursorX, interpreter.cursorY, parseInt(args[0]));
 }
 
 export function rectangle(args, terminal)
 {
+	args.forEach((argument) => {
+		if (!isNumber(argument))
+		{
+			throw new Error("Argument [" + argument + "] is not a number.");
+		}
+	});
+
 	let interpreter = terminal.interpreter;
 	rect(interpreter.cursorX, interpreter.cursorY, parseInt(args[0]), parseInt(args[1]));
 }
 
 export function drawLine(args, terminal)
 {
+	args.forEach((argument) => {
+		if (!isNumber(argument))
+		{
+			throw new Error("Argument [" + argument + "] is not a number.");
+		}
+	});
+	
 	let interpreter = terminal.interpreter;
 	stroke
 	(
@@ -121,4 +159,9 @@ export function drawLine(args, terminal)
 			parseInt(args[1]) + terminal.height
 		);
 	}
+}
+
+function isNumber(value)
+{
+	return value % 1 === 0;
 }
