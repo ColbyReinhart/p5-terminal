@@ -24,7 +24,7 @@ class Interpreter
 	async loadCommands(filepath)
 	{
 		const module = await import(filepath);
-		this.commandList = {...this.commandList, ...module.commandList};
+		this.commandList = {...this.commandList, ...module};
 	}
 	
 	// Interpret a given command

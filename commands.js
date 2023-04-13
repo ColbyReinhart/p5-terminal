@@ -1,18 +1,4 @@
-export const commandList =
-{
-	"clear": clear,
-	"background": background,
-	"cursorMode": cursorMode,
-	"cursor": cursor,
-	"color": color,
-	"text": drawText,
-	"textSize": textSize,
-	"circle": circ,
-	"rect": rectangle,
-	"line": drawLine
-};
-
-export function clear(args, terminal)
+export function cls(args, terminal)
 {
 	terminal.lineNumber = -1;
 	terminal.lines = [];
@@ -80,7 +66,7 @@ export function color(args, terminal)
 	terminal.interpreter.currentColor = {r: args[0], g: args[1], b: args[2]};
 }
 
-export function drawText(args, terminal)
+export function txt(args, terminal)
 {
 	const textToDraw = args.join(" ");
 	text(textToDraw, terminal.interpreter.cursorX, terminal.interpreter.cursorY);
