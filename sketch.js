@@ -10,19 +10,49 @@
 // 2) The terminal can now execute any function, whether from my custom functions, p5
 //	  functions, or even native javascript!
 // 3) Users can now easily import their own custom commands just by uploading a javascript
-//    file on their own copy of the project.
+//    file. Just type the "upload" command in the terminal! Make sure to put the "export"
+//    keyword in front of any functions you want the interpreter to use.
 
 // Create the terminal. See code for terminal and interpreter in terminal.js and interpreter.js.
 // I split the code into separate files to keep things tidy and to prevent this file from getting
 // too big.
 let terminal = new Terminal();
 
-// The terminal loads commands asynchronously into the interpreter, so we do it in the preload
-// function to make sure it's ready by the time we want to use it. Here we'll load all the basic
-// functionality from the micro-project.
-function preload()
-{
-}
+// The user has the ability to upload their own javascript files to the interpreter through the
+// upload command. I added some html in index.html to give the user a place to upload. Now we'll
+// write some javascript to make that upload form functional.
+
+// Make a variable and assign it to the upload modal
+let modal = document.querySelector("#modal");
+
+// Tell the cancel button to stop the upload when the user clicks it
+document.querySelector("#cancelUpload").addEventListener("click", () => {
+	modal.style.display = "none";
+});
+
+// When the user clicks submit, get the file and load it into the interpreter
+document.querySelector("#submitUpload").addEventListener("click", () => {
+	try
+	{
+		// Hide the modal
+		modal.style.display = "none";
+
+		// Get the file the user uploaded
+		const upload = document.querySelector("#fileUpload").files[0];
+
+		// Create a link to it
+		const uploadUrl = URL.createObjectURL(upload);
+
+		// Load that link into the interpreter
+		terminal.interpreter.loadCommands(uploadUrl);
+	}
+
+	// If something failed, report an error
+	catch(err)
+	{
+		alert("Error: Upload failed. Did you forget to choose a file?");
+	}
+});
 
 async function setup()
 {
@@ -34,12 +64,15 @@ async function setup()
 	noStroke();
 	rectMode(CENTER);
 	
-	// Show the tutorial on the canvas
-	// You can also add individual commands by giving it the names of functions you
-	// create in this file.
+	// Load the commands javascript file. This can take some time, so we use the await
+	// keyword to tell javascript to stop until this finishes loading.
 	await terminal.interpreter.loadCommands("./commands.js");
-	terminal.interpreter.addCommand("tutorial", showTutorial); // Add the showTutorial function
-	terminal.interpreter.interpretCommand("tutorial"); // Run it as a command
+
+	// Add the showTutorial function from this file, and call it "tutorial"
+	terminal.interpreter.addCommand("tutorial", showTutorial);
+
+	// Run the tutorial command
+	terminal.interpreter.interpretCommand("tutorial");
 }
 
 function draw()
@@ -73,9 +106,9 @@ function showTutorial()
 	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt The black box above you is a terminal. Click it to get started.");
 	terminal.interpreter.interpretCommand("cursor 0 25");
-	terminal.interpreter.interpretCommand("txt Type a command and press Enter to execute it. You can run any native or p5 function, or use the custom commands below.");
+	terminal.interpreter.interpretCommand("txt Type a command and press Enter to execute it. You can run any native or p5 function, or load your own commands!");
 	terminal.interpreter.interpretCommand("cursor 0 25");
-	terminal.interpreter.interpretCommand("txt Custom commands are listed below. Things in brackets are arguments separated by spaces. Don't include the brackets.");
+	terminal.interpreter.interpretCommand("txt Some preloaded custom commands are listed below. Things in brackets are arguments separated by spaces. Don't include the brackets.");
 	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt Available commands:");
 	terminal.interpreter.interpretCommand("cursor 0 25");
@@ -101,7 +134,7 @@ function showTutorial()
 	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt If the cursor mode is relative, endX and endY will be relative too")
 	terminal.interpreter.interpretCommand("cursor 0 25");
-	terminal.interpreter.interpretCommand("txt loadCommand [filepath]-> load functions from your own javascript file into the interpreter!");
+	terminal.interpreter.interpretCommand("txt upload -> upload your own javascript functions to the interpreter!");
 	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt See commands.js in the files for this project to see how it works. Just add 'export' before the function and call it from the terminal!");
 	terminal.interpreter.interpretCommand("cursor 0 25");

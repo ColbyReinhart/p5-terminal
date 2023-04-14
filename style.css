@@ -6,4 +6,32 @@ html, body {
 canvas {
 	display: block;
 }
+
+#modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal form {
+	background-color: white;
+	position: relative;
+	margin: 35vh 10vw;
+	border-radius: 1vmin;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+}
+
+#modal form * {
+	font-size: 1.25em;
+	margin: 5%;
+}
   

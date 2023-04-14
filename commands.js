@@ -180,6 +180,12 @@ export function loadCommands(args, terminal)
 	terminal.interpreter.loadCommands(args[0]);
 }
 
+// Upload a js file using file upload modal
+export function upload(args, terminal)
+{
+	document.querySelector("#modal").style.display = "block";
+}
+
 // A helper function to check if a value is a number. This doesn't have
 // export in front of it, so we can't use it as a command from the terminal.
 function isNumber(value)
