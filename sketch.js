@@ -20,12 +20,11 @@ let terminal = new Terminal();
 // The terminal loads commands asynchronously into the interpreter, so we do it in the preload
 // function to make sure it's ready by the time we want to use it. Here we'll load all the basic
 // functionality from the micro-project.
-async function preload()
+function preload()
 {
-	await terminal.interpreter.loadCommands("./commands.js");
 }
 
-function setup()
+async function setup()
 {
 	// P5 setup
 	createCanvas(windowWidth, windowHeight);
@@ -38,6 +37,7 @@ function setup()
 	// Show the tutorial on the canvas
 	// You can also add individual commands by giving it the names of functions you
 	// create in this file.
+	await terminal.interpreter.loadCommands("./commands.js");
 	terminal.interpreter.addCommand("tutorial", showTutorial); // Add the showTutorial function
 	terminal.interpreter.interpretCommand("tutorial"); // Run it as a command
 }
