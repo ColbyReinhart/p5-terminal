@@ -147,6 +147,11 @@ export function drawLine(args, terminal)
 	}
 }
 
+export function loadCommands(args, terminal)
+{
+	terminal.interpreter.loadCommands(args[0]);
+}
+
 function isNumber(value)
 {
 	return !isNaN(value) && !isNaN(parseFloat(value));

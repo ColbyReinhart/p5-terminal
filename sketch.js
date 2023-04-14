@@ -49,13 +49,13 @@ function showTutorial()
 	terminal.interpreter.interpretCommand("cursorMode relative");
 	
 	// Draw all the tutorial text
-	terminal.interpreter.interpretCommand("txt Welcome to 'terminal', your p5 companion!");
+	terminal.interpreter.interpretCommand("txt Welcome to the p5 terminal sketch!");
 	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt The black box above you is a terminal. Click it to get started.");
 	terminal.interpreter.interpretCommand("cursor 0 25");
-	terminal.interpreter.interpretCommand("txt Type a command and press Enter to execute it.");
+	terminal.interpreter.interpretCommand("txt Type a command and press Enter to execute it. You can run any native or p5 function, or use the custom commands below.");
 	terminal.interpreter.interpretCommand("cursor 0 25");
-	terminal.interpreter.interpretCommand("txt Commands are listed below. Things in brackets are arguments separated by spaces. Don't include the brackets.");
+	terminal.interpreter.interpretCommand("txt Custom commands are listed below. Things in brackets are arguments separated by spaces. Don't include the brackets.");
 	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt Available commands:");
 	terminal.interpreter.interpretCommand("cursor 0 25");
@@ -81,8 +81,12 @@ function showTutorial()
 	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt If the cursor mode is relative, endX and endY will be relative too")
 	terminal.interpreter.interpretCommand("cursor 0 25");
+	terminal.interpreter.interpretCommand("txt loadCommand [filepath]-> load functions from your own javascript file into the interpreter!");
+	terminal.interpreter.interpretCommand("cursor 0 25");
+	terminal.interpreter.interpretCommand("txt See commands.js in the files for this project to see how it works. Just add 'export' before the function and call it from the terminal!");
+	terminal.interpreter.interpretCommand("cursor 0 25");
 	terminal.interpreter.interpretCommand("txt tutorial -> bring back this guide!");
-	
+
 	// Draw an example cube
 	terminal.interpreter.interpretCommand("cursor 20 50");
 	terminal.interpreter.interpretCommand("color 200 25 25");
