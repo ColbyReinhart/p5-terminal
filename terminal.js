@@ -1,9 +1,14 @@
-const terminalHeight = 200;
-const terminalPadding = 10;
+const terminalHeight = 200; // How tall is the terminal?
+const terminalPadding = 10; // Padding between text and terminal borders
 const fontSize = 20;
 const fontLeading = 1.1;
-const terminalPrompt = "> ";
-const terminalCursorBlinkDelay = 20;
+const terminalPrompt = "> "; // What appears when a command is ready to be ran
+const terminalCursorBlinkDelay = 20; // Frames between blinking
+
+// This class defines all functionality of the terminal. It is pretty much identical to
+// the micro project implementation, so if you're interested in how it works see the comments
+// in that project.
+
 class Terminal
 {
 	// This function is called when an object of the terminal class is created.

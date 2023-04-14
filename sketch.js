@@ -1,9 +1,25 @@
-// Micro project 4: Playing with Text
+// Algorithmic Storytelling: p5 terminal
 // By Colby Reinhart
-// 3-23-2023
 
+// With the professor's permission, I'm doing something different for the final project.
+// Instead of a choose-your-own-adventure I am continuing to develop my 4th micro project.
+// You can see the original here: https://editor.p5js.org/Colby_R/sketches/XqKf-hrjn
+
+// For version 1, I've done the following:
+// 1) Code refactorings (aka code cleanup)
+// 2) The terminal can now execute any function, whether from my custom functions, p5
+//	  functions, or even native javascript!
+// 3) Users can now easily import their own custom commands just by uploading a javascript
+//    file on their own copy of the project.
+
+// Create the terminal. See code for terminal and interpreter in terminal.js and interpreter.js.
+// I split the code into separate files to keep things tidy and to prevent this file from getting
+// too big.
 let terminal = new Terminal();
 
+// The terminal loads commands asynchronously into the interpreter, so we do it in the preload
+// function to make sure it's ready by the time we want to use it. Here we'll load all the basic
+// functionality from the micro-project.
 function preload()
 {
 	terminal.interpreter.loadCommands("./commands.js");
@@ -13,15 +29,17 @@ function setup()
 {
 	// P5 setup
 	createCanvas(windowWidth, windowHeight);
-	textFont("Ubuntu Mono");
+	textFont("Ubuntu Mono"); // Imported google font
 	textSize(fontSize);
 	fill(255);
 	noStroke();
 	rectMode(CENTER);
 	
 	// Show the tutorial on the canvas
-	terminal.interpreter.addCommand("tutorial", showTutorial);
-	terminal.interpreter.interpretCommand("tutorial");
+	// You can also add individual commands by giving it the names of functions you
+	// create in this file.
+	terminal.interpreter.addCommand("tutorial", showTutorial); // Add the showTutorial function
+	terminal.interpreter.interpretCommand("tutorial"); // Run it as a command
 }
 
 function draw()
@@ -36,6 +54,8 @@ function keyPressed()
  terminal.typeCharacter(); // Tell the terminal that the user has typed something.
 }
 
+// This is the function we registered as a command. When the terminal calls the command,
+// this function will run just like any normal javascript function.
 function showTutorial()
 {
 	// Revert everything back to default
