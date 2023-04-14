@@ -72,7 +72,7 @@ export function txt(args, terminal)
 	text(textToDraw, terminal.interpreter.cursorX, terminal.interpreter.cursorY);
 }
 
-export function textSize(args, terminal)
+export function txtSize(args, terminal)
 {
 	if (!isNumber(args[0]))
 	{
