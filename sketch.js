@@ -20,9 +20,9 @@ let terminal = new Terminal();
 // The terminal loads commands asynchronously into the interpreter, so we do it in the preload
 // function to make sure it's ready by the time we want to use it. Here we'll load all the basic
 // functionality from the micro-project.
-function preload()
+async function preload()
 {
-	terminal.interpreter.loadCommands("./commands.js");
+	await terminal.interpreter.loadCommands("./commands.js");
 }
 
 function setup()
